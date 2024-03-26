@@ -1,0 +1,58 @@
+<header class="jumbotron text-center">
+    <h3>All Product List</h3>
+</header>
+<section class="float-right">
+  <app-logout></app-logout>
+</section>
+<hr>
+
+<section>
+  <!--  Age Range Slider  -->
+  <div class="row">
+    <div class="col">
+      <div class="card mb-3" style="max-width: 21rem;">
+        <div class="card-body text-center">
+          <div class="d-flex">
+            <label for="age_slider" class="form-label"><strong>Start Price : </strong></label>
+            <input class="slider" name="age_slider" id="age_slider" type="range" [(ngModel)]="start" max="10000" min="1000" (change)="priceLimit()">
+            <output class="badge bedge-pills badge-success">{{start  | currency:'INR'}}</output>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-3" style="max-width: 21rem;">
+        <div class="card-body text-center">
+          <div class="d-flex">
+            <label for="age_slider" class="form-label"><strong>End Price : </strong></label>
+            <input class="slider" name="age_slider" id="age_slider" type="range" [(ngModel)]="end" max="100000" min="2000" (change)="priceLimit()">
+            <output class="badge bedge-pills badge-warning">{{end | currency:'INR'}}</output>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section>
+  <p>Pipe Filters Search.....</p>
+</section> -->
+
+<hr>
+
+<div class="container text-center">
+    <div class="card-group">
+      <div class="card" style="width:400px" *ngFor="let p of productList">
+        <img class="card-img-top" src="{{p.pro_image}}" alt="{{p.pro_name}}" title="{{p.pro_name}}">
+        <div class="card-body">
+          <h4 class="card-title">{{p.pro_name}}</h4>
+          <p class="card-text">{{p.pro_desc}}</p>
+          <a href="#" class="btn btn-success">Price : {{p.pro_price| currency:'INR'}}</a>
+
+          <button (click)="order(p)" class="btn btn-warning">Order</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<hr>

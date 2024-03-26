@@ -1,0 +1,90 @@
+<header class="jumbotron text-center">
+    <h3>Admin Dashbord</h3>
+</header>
+<hr>
+<div class="container text-center">
+    <h4>Current Admin</h4>
+    <p>Admin can add, update & delete Products</p>
+    <section class="float-right">
+        <button (click)="logout()" class="btn btn-sm btn-danger">Logout</button>
+    </section>
+    <section>
+        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-success float-right" (click)="modalOpen()">Add New Product</button>
+    </section>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>SL NO.</th>
+            <th>Name</th>
+            <th>Desc</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productList; let i=index">
+            <td>{{i+1}}</td>
+            <td>{{p.pro_name}}</td>
+            <td>{{p.pro_desc}}</td>
+            <td><span class="badge badge-pill badge-warning">{{p.pro_price | currency:'INR'}}</span></td>
+            <td><img src="{{p.pro_image}}" height="50px" width="50px" class="img-thumbnail" alt="{{p.pro_name}}" title="{{p.pro_name}}"></td>
+            <td>
+              <p><button class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#myModal" (click)="openUpdateModal(p)">Update</button></p>
+              <p><button class="btn btn-sm btn-danger" (click)="deleteById(p._id)">Delete</button></p>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <!-- Add New Product -->
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal"  *ngIf="showHideModel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+        
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 [innerHTML]="titleMsg ? 'Add New Product': 'Update Product' " class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <form [formGroup]="productForm">
+                    <div class="modal-body text-left">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input formControlName="pro_name" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Desc:</label>
+                            <textarea formControlName="pro_desc" class="form-control" rows="10" cols="20"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input formControlName="pro_price" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Image:</label>
+                            <input #takeInput type="file" (change)="setFile($event)" class="form-control">
+                        </div>
+                    </div>
+            
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <ng-container *ngIf="titleMsg; else updateBtn">
+                            <button type="button" (click)="addNewProduct()" class="btn btn-success">Add</button>
+                        </ng-container>
+                        <ng-template #updateBtn>                            
+                            <button type="button" (click)="updateProductById()" class="btn btn-warning">Update</button>
+                        </ng-template>
+                                                
+                        <button type="button" (click)="modalClose()" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <hr>
+</div>

@@ -1,0 +1,32 @@
+<header class="jumbotron text-center">
+    <h3>View Product</h3>
+</header>
+<hr>
+
+<ng-container *ngIf="placeOrderInfo.length!=0 else product">
+    <div class="alert alert-success" role="alert">
+        <p><strong>You Have Successfully Placed Order</strong></p>
+        <p><strong>Your Order Id : <code>{{placeOrderInfo._id}}</code></strong></p>
+        <p><strong>Your Order Date : <code>{{placeOrderInfo.order_date | date : "short"}}</code></strong></p>
+    </div>
+</ng-container>
+<ng-template #product>
+    <div class="container text-center">
+        <div class="card-group">
+          <div class="card" style="width:400px" >
+            <img class="card-img-top" src="{{productDetails.pro_image}}" alt="{{productDetails.pro_name}}" title="{{productDetails.pro_name}}">
+            <div class="card-body">
+              <h4 class="card-title">{{productDetails.pro_name}}</h4>
+              <p class="card-text"><span class="badge badge-pills badge-danger">Price : {{productDetails.pro_price | currency : 'INR'}}</span></p>
+    
+              <button (click)="orderPlace()" class="btn btn-success">Place order</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<hr>
+
